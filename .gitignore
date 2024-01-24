@@ -1,0 +1,12 @@
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*$py.class
+*DS_Store
+Tesseract.egg-info/*
+# Pycharm information
+.idea/*
+/features/
+build/*
+dist/*egg*
+
