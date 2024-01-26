@@ -92,7 +92,7 @@ implementation and §6 of the Tesseract manuscript---although we are aiming to s
 that details the new design. We know this can be frustrating and thank you for your patience!
 
 If you encounter a bug or have a feature request, please feel free to contact the maintainer directly 
-at `lorenzo.cavallaro [at] kcl.ac.uk` and cc `fabio.pierazzi [at] kcl.ac.uk`.
+at `lorenzo.cavallaro [at] ucl.ac.uk` and cc `fabio.pierazzi [at] kcl.ac.uk`.
 
 
 ## Acknowledgements 
