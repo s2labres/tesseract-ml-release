@@ -1,50 +1,30 @@
-import json, datetime
-import numpy as np
-from sklearn.feature_extraction import DictVectorizer
+import json
+import os
 
-from tesseract import feature_reduction
+from sklearn.svm import LinearSVC
 
-def load_data(filepath):
-    with open(filepath, 'r') as fp:
-        data = json.load(fp)
-    return data
-
-
-def transform(X, y, meta):
-    vec = DictVectorizer()
-    X = vec.fit_transform(X).astype(np.int8)
-
-    y = np.asarray(y).astype(np.int8)
-
-    t = [o['dex_date'] for o in meta]
-    t = [datetime.datetime.fromtimestamp(o) if type(o) == int \
-                                            else datetime.datetime.strptime(o, '%Y-%m-%d %H:%M:%S') \
-                                            for o in t]
-    t = np.asarray(t)
-
-    return X, y, t, vec
+from tesseract import loader, temporal
 
 
 def main():
+
+    data_dir = 'DATA DIRECTORY GOES HERE'
+
     # Load features 
-    X = load_data('X.json')
-    y = load_data('y.json')
-    meta = load_data('meta.json')
-    
-    # Vectorize features
-    X, y, t, vec = transform(X, y, meta)
+    X, y, t, _ = loader.load_features(os.path.join(data_dir, 'raw', 'extended-features', 'extended-features'))
 
-    # SelectKBest feature selection
-    select_index = feature_reduction.selectKBest(X, y, feature_size=10000)
+    # Split into training and testing sets
+    X_train_full, X_tests_full, y_train, y_tests, t_train, t_tests = \
+        temporal.time_aware_train_test_split(X, y, t, train_size=12, test_size=1, granularity='month')
 
-    # OR
-    # RecursiveFeatureElimination feature selection
-    # select_index = feature_reduction.recursiveFeatureElimination(X, y, feature_size=10000, step=0.1)
+    # SelectKBest feature selection for a classifier
+    clf = LinearSVC(dual="auto", max_iter=50000)
+    clf.fit(X_train_full, y_train)
 
-    # Write the reduced and devectorized features to a file
-    reduced_X_dict = feature_reduction.devectorize_reduce(X, select_index, vec)
-    with open('reduced-X-10000.json', 'w') as fp:
-        json.dump(reduced_X_dict, fp, default=lambda x: int(x))
+    select_index = loader.feature_reduce(clf=clf, dim=10000)
+
+    with open('reduced-Indexes-10000.json', 'w') as fp:
+        json.dump(select_index, fp, default=lambda x: int(x))
 
 
 if __name__ == '__main__':
