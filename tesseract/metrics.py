@@ -36,7 +36,7 @@ def t_slope(metric):
     return reg.coef_[0][0]
 
 
-def aut(results, metric=None, idx=None):
+def aut(results, metric=None, s_idn=None, e_ind=None):
     """Compute the AUT with respect to the given metric.
 
     Note that for results spanning a _single_ time period, AUT = 0 as this is
@@ -44,20 +44,39 @@ def aut(results, metric=None, idx=None):
 
     Args:
         results: The set of time-aware results to operate over.
-        metric: The metric to operate with respect to.
-        granularinty
+        metric: The metric to operate with respect to granularity.
+        s_idn: The index to start aut evaluation, default is beginning of results.
+        e_ind: The index to end aut evaluation, default is end of results.
     Returns:
         float: A measure of robustness for the applied model over the time
             spanning the results.
 
     """
     if isinstance(results, dict) or isinstance(results, pd.DataFrame):
-        results = results[metric][:idx]
+        results = results[metric][s_idn:e_ind]
 
     if len(results) <= 1:
         return 0
 
     return np.trapz(results) / (len(results) - 1)
+
+
+def aut_with_observation_window(results, metric=None, window=None):
+    """Compute the AUT with respect to the given metric broken down by a window size.
+
+    Note that for results spanning a _single_ time period, AUT = 0 as this is
+    not considered a time-aware evaluation.
+
+    Args:
+        results: The set of time-aware results to operate over.
+        metric: The metric to operate with respect to granularity.
+        window: The size of window to break aut down into. Eval period mod window must be 0
+    Returns:
+        list: A list of aut measures for the applied model over the time
+            spanning the results, split into the window size.
+
+    """
+    return [aut(results, metric, s_idn=w*window, e_ind=(1+w)*window) for w in range(len(results[metric])//window)]
 
 
 def aut_with_granularity(results, granularity, metric=None):
