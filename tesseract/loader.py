@@ -6,7 +6,6 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 import scipy
-from ember import *
 import numpy
 from sklearn.datasets import load_svmlight_file
 from sklearn.feature_extraction import DictVectorizer
