@@ -7,7 +7,6 @@ import pickle as pkl
 from sklearn import metrics as mtcs
 import multiprocessing as mp
 from itertools import repeat
-from termcolor import cprint
 
 
 def sort_by_predicted_label(
@@ -891,7 +890,7 @@ def report_results(d, quiet=False):
     def print_and_extend(report_line):
         nonlocal report_str
         if not quiet:
-            cprint(report_line, 'yellow')
+            print(report_line)
         report_str += report_line + '\n'
 
     s = '% kept elements: {:.1f}, % rejected elements: {:.1f}'.format(
