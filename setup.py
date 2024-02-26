@@ -9,7 +9,7 @@ _dependencies = [
     'pyparsing==3.0.9',
     'python-dateutil==2.8.1',
     'pytz==2022.1',
-    'scikit-learn==1.1.1',
+    'scikit-learn>=1.1.1,<2.0.0',
     'scipy==1.8.1',
     'seaborn==0.9.0',
     'six==1.11.0',
