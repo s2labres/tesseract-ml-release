@@ -92,6 +92,8 @@ def search_optimal_train_ratio(clf, X_train, y_train, t_train,
 
     """
     import tesseract.temporal as temporal
+    import tesseract.evaluation as evaluation
+                                   
     # Split again to get training and validation sets for finding K
     splits = temporal.time_aware_train_test_split(
         X_train, y_train, t_train, train_size=proper_train_size,
@@ -142,11 +144,9 @@ def search_optimal_train_ratio(clf, X_train, y_train, t_train,
                 t_validations[i] = t_validations[i][val_idxs]
 
             # Compute results
-            results = temporal.fit_predict(clf, X_train, X_validations,
-                                           y_train, y_validations,
-                                           t_train, t_validations,
-                                           training='stationary',
-                                           testing='rolling')
+            results = evaluation.fit_predict_update(clf, X_train, X_validations,
+                                                    y_train, y_validations,
+                                                    t_train, t_validations)
 
             fps.append(np.sum(results['fp']))
             fns.append(np.sum(results['fn']))
