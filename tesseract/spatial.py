@@ -204,7 +204,7 @@ def find_optimal_train_ratio(clf, X_train, y_train, t_train,
     rates = search_optimal_train_ratio(
         clf, X_train, y_train, t_train, proper_train_size,
         validation_size, granularity, start_tr_rate, end_tr_rate,
-        step, test_noise, acceptable_errors)
+        step, test_noise, metric)
 
     phis, auts, errors = rates['phis'], rates['auts'], rates['errors']
 
