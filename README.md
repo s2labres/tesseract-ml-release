@@ -8,7 +8,7 @@ Further details can be found in the paper *TESSERACT: Eliminating Experimental B
 
 If you end up using Tesseract as part of a project or publication, please include a citation of the latest preprint: 
 
-```
+```bibtex
 @inproceedings{pendlebury2019,
    author = {Feargus Pendlebury, Fabio Pierazzi, Roberto Jordaney, Johannes Kinder, and Lorenzo Cavallaro},
    title = {{TESSERACT: Eliminating Experimental Bias in Malware Classification across Space and Time}},
