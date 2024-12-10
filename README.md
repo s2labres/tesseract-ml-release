@@ -4,9 +4,11 @@ As malware evolves over time, the performance of malware detectors tends to degr
 
 This repository contains the source code for a prototype implementation of Tesseract.  
 
-Further details can be found in the paper *TESSERACT: Eliminating Experimental Bias in Malware Classification across Space and Time*. F.  Pendlebury, F. Pierazzi, R. Jordaney, J. Kinder, and L. Cavallaro.  USENIX Sec 2019. Check also `https://s2lab.cs.ucl.ac.uk/projects/tesseract` for up-to-date information on the project, e.g., a talk at USENIX Enigma 2019 at `https://www.usenix.org/conference/enigma2019/presentation/cavallaro`.
+Further details can be found in the paper *TESSERACT: Eliminating Experimental Bias in Malware Classification across Space and Time*. F.  Pendlebury, F. Pierazzi, R. Jordaney, J. Kinder, and L. Cavallaro.  USENIX Sec 2019. 
 
-If you end up using Tesseract as part of a project or publication, please include a citation of the latest preprint: 
+For up-to-date information on the project: [https://s2lab.cs.ucl.ac.uk/projects/tesseract](https://s2lab.cs.ucl.ac.uk/projects/tesseract).
+
+If you end up using Tesseract as part of a project or publication, please include this citation: 
 
 ```bibtex
 @inproceedings{pendlebury2019,
